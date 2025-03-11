@@ -56,41 +56,39 @@ def eliminar_linea(clave_linea):
     conn.commit()
     conn.close()
 
+def pedir_datos():
+    clave_linea = input("Ingrese clave de la línea: ")
+    nombre_linea = input("Ingrese nombre de la línea: ")
+    return clave_linea, nombre_linea
 
-# Llamada 1:
-insertar_linea('RCISP', 'Robótica, Control Inteligente y Sistemas de')
-print("Datos: ")
-for linea in leer_lineas():
-    print(linea)
-
-actualizar_linea('RCISP', 'Robótica, Control Inteligente y Sistemas de Percepción')
-print("Datos después de actualizar: ")
-for linea in leer_lineas():
-    print(linea)
-
-#Llamada para la función de eliminar linea:
-"""
-eliminar_linea('RCISP')
-print("Datos después de eliminar:")
-for linea in leer_lineas():
-    print(linea)
-"""
-
-#Llamada 2:
-insertar_linea('TDWM', 'Tecnologías de Desarrollo Web y ')
-print("Datos: ")
-for linea in leer_lineas():
-    print(linea)
-
-actualizar_linea('TDWM', 'Tecnologías de Desarrollo Web y Móvil')
-print("Datos después de actualizar: ")
-for linea in leer_lineas():
-    print(linea)
-
-#Llamada para la función de eliminar linea:
-"""
-eliminar_linea('TDWM')
-print("Datos después de eliminar:")
-for linea in leer_lineas():
-    print(linea)
-"""
+if __name__ == "__main__":
+    while True:
+        print("\nMenu:")
+        print("1. Ver Lineas")
+        print("2. Actualizar Lineas")
+        print("3. Insertar Linea")
+        print("4. Eliminar Linea")
+        print("5. Salir")
+        opc = input("Ingrese una opcion: ")
+        
+        if opc == "1":
+            lineas = leer_lineas()
+            if lineas:
+                print("")
+                for linea in lineas:
+                    print(f"{linea[0]}, {linea[1]}")
+            else:
+                print("\nNo hay líneas registradas.")
+        elif opc == "2":
+            clave_linea, nombre_linea = pedir_datos()
+            actualizar_linea(clave_linea, nombre_linea)
+        elif opc == "3":
+            clave_linea, nombre_linea = pedir_datos()
+            insertar_linea(clave_linea, nombre_linea)
+        elif opc == "4":
+            clave_linea = input("Ingrese la clave de la línea a eliminar: ")
+            eliminar_linea(clave_linea)
+        elif opc == "5":
+            break
+        else:
+            print("Opción no válida.")

@@ -1,3 +1,8 @@
+#Link al Repositorio de GitHub: https://github.com/Leon30624/devasc-study-team
+#Leonardo Aguilar Cal y Mayor - 23270043
+#Practica 09: CRUD tipo_proyecto
+#Fecha: 06/03/2025
+
 import mysql.connector
 
 def conectar():
@@ -56,41 +61,39 @@ def eliminar_tipo(clave_tipo):
     conn.commit()
     conn.close()
 
+def pedir_datos():
+    clave_tipo = input("Ingrese clave del tipo de proyecto: ")
+    nombre_tipo = input("Ingrese nombre del tipo de proyecto: ")
+    return clave_tipo, nombre_tipo
 
-# Llamada 1:
-insertar_tipo('DT', 'Desarrollo Tecnolo')
-print("Datos: ")
-for linea in leer_tipos():
-    print(linea)
-
-actualizar_tipo('DT', 'Desarrollo Tecnológico')
-print("Datos después de actualizar: ")
-for linea in leer_tipos():
-    print(linea)
-
-#Llamada para la función de eliminar linea:
-"""
-eliminar_tipo('DT')
-print("Datos después de eliminar:")
-for tipo in leer_tipos():
-    print(tipo)
-"""
-
-#Llamada 2:
-insertar_tipo('I', 'Investigaciom')
-print("Datos: ")
-for linea in leer_tipos():
-    print(linea)
-
-actualizar_tipo('I', 'Investigación')
-print("Datos después de actualizar: ")
-for linea in leer_tipos():
-    print(linea)
-
-#Llamada para la función de eliminar linea:
-"""
-eliminar_tipo('I')
-print("Datos después de eliminar:")
-for tipo in leer_tipos():
-    print(tipo)
-"""
+if __name__ == "__main__":
+    while True:
+        print("\nMenu:")
+        print("1. Ver tipos")
+        print("2. Actualizar tipos")
+        print("3. Insertar tipos")
+        print("4. Eliminar tipos")
+        print("5. Salir")
+        opc = input("Ingrese una opcion: ")
+        
+        if opc == "1":
+            tipos = leer_tipos()
+            if tipos:
+                print("")
+                for tipo in tipos:
+                    print(f"{tipo[0]}, {tipo[1]}")
+            else:
+                print("\nNo hay tipo registrados.")
+        elif opc == "2":
+            clave_tipo, nombre_tipo = pedir_datos()
+            actualizar_tipo(clave_tipo, nombre_tipo)
+        elif opc == "3":
+            clave_tipo, nombre_tipo = pedir_datos()
+            insertar_tipo(clave_tipo, nombre_tipo)
+        elif opc == "4":
+            clave_prof = input("Ingrese la clave del tipo de proyecto a eliminar: ")
+            eliminar_tipo(clave_tipo)
+        elif opc == "5":
+            break
+        else:
+            print("Opción no válida.")
